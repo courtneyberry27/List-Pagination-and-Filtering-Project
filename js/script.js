@@ -15,7 +15,7 @@ const searchResults = [];
  *@page [number] - this is the page number that is being displayed
  *@returns [object] - no return statement needed as it displayes to the screen
  */
-const showPage = (list, page) => {
+function showPage = (list, page) => {
     const startIndex = ((page * studentsPerPage) - studentsPerPage); //calculates the index number that the corresponding page will start with
     const endIndex = (page * studentsPerPage) - 1; //calculates the ending index for the page
 
@@ -53,9 +53,9 @@ function appendPageLinks(list) {
         if (i === 1) { //sets first anchor tag to active
             a.className = 'active';
         }
-        //Button Event Handler
+        //page Button Event Handler
         a.addEventListener('click', (e) => {
-            const allAnchorTags = document.querySelectorAll('a');
+            const allAnchorTags = document.querySelectorAll('a'); //selects all anchor tags
 
             for (let j = 0; j < allAnchorTags.length; j += 1) { //removes the active class name from all of the anchor tags
                 allAnchorTags[j].classList.remove('active'); //removes active from all anchors
@@ -67,34 +67,38 @@ function appendPageLinks(list) {
     }
 }
 
+/*** Function Name: search - creates search bar and button, and returns either the matching results or a message to the screen displaying no results
+ *@returns - returns all names containing the string entered in the search bar or a message saying no results
+ ***/
 function search() {
-    const searchDiv = document.querySelector('.page-header');
-    const noResultDiv = document.createElement('div');
-    noResultDiv.className = '.no-results';
-    page.appendChild(noResultDiv);
-    const input = document.createElement('input');
-    const searchButton = document.createElement('button');
-    input.placeholder = "Search for students here";
-    searchButton.textContent = "Search";
-    searchDiv.appendChild(input);
-    searchDiv.appendChild(searchButton);
+    const searchDiv = document.querySelector('.page-header');  //ties the search area to the header of the page and its css and html
+    const noResultDiv = document.createElement('div');  //creates div for displaying no results
+    noResultDiv.className = '.no-results'; //creates class name no-results
+    page.appendChild(noResultDiv);  //links no results div to the page contents
+    const input = document.createElement('input'); //creates searchbar input
+    const searchButton = document.createElement('button'); //creates search button
+    input.placeholder = "Search for students here";  //placeholder for input bar, so it goes away when user starts typing
+    searchButton.textContent = "Search"; //text of search button
+    searchDiv.appendChild(input);  //links searchbar to the input element creates, so they work together
+    searchDiv.appendChild(searchButton);  //links searchbar and search button, so they work together
 
+    //SEARCH BUTTON EVENT HANDLER
     searchButton.addEventListener('click', (e) => {
-        const searchFilter = input.value.toLowerCase();
-        searchResults.length = 0;
+        const searchFilter = input.value.toLowerCase(); //makes search all lowercase
+        searchResults.length = 0; //sets initial results to zero
 
-        for (let i = 0; i < studentsInfo.length; i += 1) {
-            if (studentsInfo[i].innerHTML.indexOf(searchFilter) > -1) {
+        for (let i = 0; i < studentsInfo.length; i += 1) {  //loops through all names and displays those that match
+            if (studentsInfo[i].innerHTML.indexOf(searchFilter) > -1) {  //if matches, displays
                 studentsInfo[i].style.display = '';
-            } else {
+            } else { //if doesn't match, displays nothing
                 studentsInfo[i].style.display = 'none';
                 searchResults.push(i);
             }
         }
 
-        if (searchResults.length === studentsInfo.length) {
-            noResultDiv.innerHTML = '<h1> No Results... </h1>'
-        } else {
+        if (searchResults.length === studentsInfo.length) {  //if nothing at all matches, displays no results
+            noResultDiv.innerHTML = '<h1> No Results... </h1>' //creates no results element
+        } else {  //if results, just display results, not no results message
             noResultDiv.innerHTML = '';
         }
     })
