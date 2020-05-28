@@ -35,7 +35,7 @@ function appendPageLinks(list) {
     paginationDiv.className = 'pagination' //assigns class name 
     page.appendChild(paginationDiv); //links page to div child element
     const paginationUl = document.createElement('ul');
-    paginationUl.className = 'pagination li a'; //creates ul element
+    paginationUl.className = 'pagination'; //creates ul element
     paginationDiv.appendChild(paginationUl); //links ul to div
 
     document.querySelector('.pagination').appendChild(paginationUl);
@@ -45,7 +45,7 @@ function appendPageLinks(list) {
         let a = document.createElement('a');
         a.setAttribute('href', '#'); //sets href to # for anchor tag
         paginationUl.appendChild(li); //links ul to li
-        li.className = 'pagination li a';
+        li.className = 'pagination';
         a.innerHTML = i + 1; //makes page number start at 1 and go to whatever the total number of pages is
         li.appendChild(a); //links a to li
 
