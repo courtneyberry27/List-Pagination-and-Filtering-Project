@@ -15,7 +15,7 @@ const searchResults = [];
  *@page [number] - this is the page number that is being displayed
  *@returns [object] - no return statement needed as it displayes to the screen
  */
-function showPage = (list, page) => {
+function showPage(list, page) {
     const startIndex = ((page * studentsPerPage) - studentsPerPage); //calculates the index number that the corresponding page will start with
     const endIndex = (page * studentsPerPage) - 1; //calculates the ending index for the page
 
